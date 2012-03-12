@@ -128,6 +128,9 @@ class recent_form extends moodleform {
             $options["mod/$modname"] = get_string('allmods', '', get_string('modulenameplural', $modname));
         }
 
+        $viewassignments = $CFG->assignment_showrecentsubmissions;
+        $assignments = 0;
+
         foreach ($modinfo->sections as $section=>$cmids) {
             $options["section/$section"] = "-- ".get_section_name($COURSE, $sections[$section])." --";
             foreach ($cmids as $cmid) {
@@ -135,9 +138,24 @@ class recent_form extends moodleform {
                 if (empty($modsused[$cm->modname]) or !$cm->uservisible) {
                     continue;
                 }
+
+                $gradeassignments = has_capability('moodle/grade:viewall', get_context_instance(CONTEXT_MODULE, $cm->id));
+                if ($cm->modname == 'assignment') {
+                    if ($viewassignments || $gradeassignments) {
+                        $assignments += 1;
+                    } else {
+                        continue;
+                    }
+                }
+
                 $options[$cm->id] = format_string($cm->name);
             }
         }
+
+        if ($assignments == 0) {
+            unset($options["mod/assignment"]);
+        }
+
         $mform->addElement('select', 'modid', get_string('activities'), $options);
         $mform->setAdvanced('modid');
 
