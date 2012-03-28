@@ -309,6 +309,134 @@ function glossary_user_complete($course, $user, $mod, $glossary) {
         echo '</td></tr></table>';
     }
 }
+
+/**
+* Returns all glossary entries since a given time for specified glossary
+*/
+function glossary_get_recent_mod_activity(&$activities, &$index, $timestart, $courseid, $cmid, $userid = 0, $groupid = 0) {
+    global $COURSE, $USER, $DB;
+
+    if ($COURSE->id == $courseid) {
+        $course = $COURSE;
+    } else {
+        $course = $DB->get_record('course', array('id' => $courseid));
+    }
+
+    $modinfo = get_fast_modinfo($course);
+    $cm = $modinfo->cms[$cmid];
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
+
+    $viewfullnames = has_capability('moodle/site:viewfullnames', $context);
+    $accessallgroups = has_capability('moodle/site:accessallgroups', $context);
+    $groupmode = groups_get_activity_groupmode($cm, $course);
+
+    $joinsql = 'JOIN  {glossary} g ON  ge.glossaryid = g.id ';
+    $clausesql = ' AND ';
+    $params['timestart'] = $timestart;
+
+    if ($userid) {
+        $userselect = "AND u.id = :userid";
+        $params['userid'] = $userid;
+    } else {
+        $userselect = '';
+    }
+
+    if ($groupid) {
+        $groupselect = 'AND gm.groupid = :groupid';
+        $groupjoin   = 'JOIN {groups_members} gm ON  gm.userid=u.id';
+        $params['groupid'] = $groupid;
+    } else {
+        $groupselect = '';
+        $groupjoin   = '';
+    }
+
+    $params['timestart'] = $timestart;
+    $params['glossaryid'] = $cm->instance;
+
+    if (!$entries = $DB->get_records_sql("
+              SELECT ge.*,
+                     u.firstname, u.lastname, u.email, u.picture, u.imagealt
+                FROM {glossary_entries} ge
+                     JOIN {user} u ON u.id = ge.userid
+                     $groupjoin
+               WHERE ge.timemodified > :timestart
+                 AND ge.glossaryid = :glossaryid
+                     $userselect
+                     $groupselect
+            ORDER BY ge.timemodified ASC", $params)) {
+        return;
+    }
+
+
+    foreach ($entries as $entry) {
+        if ($entry->userid != $USER->id) {
+            if ($groupmode == SEPARATEGROUPS and !$accessallgroups) {
+                if (is_null($usersgroups)) {
+                    $usersgroups = groups_get_all_groups($course->id,
+                    $attempt->userid, $cm->groupingid);
+                    if (is_array($usersgroups)) {
+                        $usersgroups = array_keys($usersgroups);
+                    } else {
+                        $usersgroups = array();
+                    }
+                }
+                if (!array_intersect($usersgroups, $modinfo->groups[$cm->id])) {
+                    continue;
+                }
+            }
+        }
+
+        $tmpactivity = new stdClass();
+        $tmpactivity->type       = 'glossary';
+        $tmpactivity->cmid       = $cm->id;
+        $tmpactivity->name       = format_string($cm->name, true);
+        $tmpactivity->sectionnum = $cm->sectionnum;
+        $tmpactivity->timestamp  = $entry->timemodified;
+        $tmpactivity->content->entryid = $entry->id;
+        $tmpactivity->content->concept   = $entry->concept;
+        $tmpactivity->content->definition   = $entry->definition;
+        $tmpactivity->user->id        = $entry->userid;
+        $tmpactivity->user->firstname = $entry->firstname;
+        $tmpactivity->user->lastname  = $entry->lastname;
+        $tmpactivity->user->fullname  = fullname($entry, $viewfullnames);
+        $tmpactivity->user->picture   = $entry->picture;
+        $tmpactivity->user->imagealt  = $entry->imagealt;
+        $tmpactivity->user->email     = $entry->email;
+
+        $activities[$index++] = $tmpactivity;
+    }
+
+    return true;
+}
+
+/**
+* Outputs the glossary entry indicated by $activity
+*/
+function glossary_print_recent_mod_activity($activity, $courseid, $detail, $modnames, $viewfullnames) {
+    global $OUTPUT;
+
+    echo html_writer::start_tag('div', array('class'=>'glossary-activity', 'style' => 'padding: 7px 0px;'));
+    if (!empty($activity->user)) {
+        echo html_writer::tag('div', $OUTPUT->user_picture($activity->user, array('courseid'=>$courseid)),
+        array('style' => 'float: left; padding: 7px;'));
+    }
+
+    echo html_writer::start_tag('div', array('class'=>'glossary-entry'));
+    echo get_string('entry', 'glossary') .': '. $activity->content->concept ;
+    echo $activity->content->definition;
+    echo html_writer::end_tag('div');
+
+    $url = new moodle_url('/user/view.php', array('course'=>$courseid, 'id'=>$activity->user->id));
+    $name = $activity->user->fullname;
+    $link = html_writer::link($url, $name);
+
+    echo html_writer::start_tag('div', array('class'=>'user'));
+    echo $link .' - '. userdate($activity->timestamp);
+    echo html_writer::end_tag('div');
+
+    echo html_writer::end_tag('div');
+    return;
+}
 /**
  * Given a course and a time, this module should find recent activity
  * that has occurred in glossary activities and print it out.
