@@ -513,8 +513,15 @@ class comment {
             $c->content     = $u->ccontent;
             $c->format      = $u->cformat;
             $c->timecreated = $u->ctimecreated;
-            $url = new moodle_url('/user/view.php', array('id'=>$u->id, 'course'=>$this->courseid));
-            $c->profileurl = $url->out(false);
+            // Is the user allowed to view the profile and is the commentator still enrolled in the course?
+            if (has_capability('moodle/user:viewdetails', $this->context) && is_enrolled($this->context, $u->id)) {
+                $url = new moodle_url('/user/view.php', array('id'=>$u->id, 'course'=>$this->courseid));
+                $c->profileurl = $url->out(false);
+            } else if (has_capability('moodle/user:viewdetails', get_context_instance(CONTEXT_SYSTEM))) {
+                $url = new moodle_url('/user/profile.php', array('id'=>$u->id));
+                $c->profileurl = $url->out(false);
+            }
+            //If the user isn't permitted to see the profile, don't produce a link
             $c->fullname = fullname($u);
             $c->time = userdate($c->timecreated, get_string('strftimerecent', 'langconfig'));
             $c->content = format_text($c->content, $c->format, $formatoptions);
