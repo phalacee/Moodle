@@ -20,6 +20,7 @@
     $marker      = optional_param('marker',-1 , PARAM_INT);
     $switchrole  = optional_param('switchrole',-1, PARAM_INT);
     $modchooser  = optional_param('modchooser', -1, PARAM_BOOL);
+    $return      = clean_param(base64_decode(optional_param('return', '', PARAM_RAW)), PARAM_URL);
 
     $params = array();
     if (!empty($name)) {
@@ -152,6 +153,8 @@
             // Redirect to site root if Editing is toggled on frontpage
             if ($course->id == SITEID) {
                 redirect($CFG->wwwroot .'/?redirect=0');
+            } else if (!empty($return)) {
+                redirect($return);
             } else {
                 redirect($PAGE->url);
             }
