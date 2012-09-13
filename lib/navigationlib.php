@@ -3563,7 +3563,7 @@ class settings_navigation extends navigation_node {
                 $baseurl->param('sesskey', sesskey());
             } else {
                 // Edit on the main course page.
-                $baseurl = new moodle_url('/course/view.php', array('id'=>$course->id, 'sesskey'=>sesskey()));
+                $baseurl = new moodle_url('/course/view.php', array('id'=>$course->id, 'return' => base64_encode($this->page->url->out(false)), 'sesskey'=>sesskey()));
             }
 
             $editurl = clone($baseurl);
@@ -4356,7 +4356,7 @@ class settings_navigation extends navigation_node {
         if (has_capability('moodle/course:update', $coursecontext)) {
 
             // Add the turn on/off settings
-            $url = new moodle_url('/course/view.php', array('id'=>$course->id, 'sesskey'=>sesskey()));
+            $url = new moodle_url('/course/view.php', array('id'=>$course->id, 'return' => base64_encode($this->page->url->out(false)), 'sesskey'=>sesskey()));
             if ($this->page->user_is_editing()) {
                 $url->param('edit', 'off');
                 $editstring = get_string('turneditingoff');
