@@ -98,7 +98,7 @@ $PAGE->navbar->add($backup->get_stage_name());
 $renderer = $PAGE->get_renderer('core','backup');
 echo $OUTPUT->header();
 if ($backup->enforce_changed_dependencies()) {
-    echo $renderer->dependency_notification(get_string('dependenciesenforced','backup'));
+    debugging(get_string('dependenciesenforced','backup'), DEBUG_DEVELOPER);
 }
 echo $renderer->progress_bar($backup->get_progress_bar());
 echo $backup->display($renderer);
