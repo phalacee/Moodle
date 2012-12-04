@@ -151,11 +151,11 @@ class block_online_users extends block_base {
                 $timeago = format_time($now - $user->lastaccess); //bruno to calculate correctly on frontpage
 
                 if (isguestuser($user)) {
-                    $this->content->text .= '<div class="user">'.$OUTPUT->user_picture($user, array('size'=>16));
+                    $this->content->text .= '<div class="user">'.$OUTPUT->user_picture($user, array('size'=>16, 'alttext'=>false));
                     $this->content->text .= get_string('guestuser').'</div>';
 
                 } else {
-                    $this->content->text .= '<div class="user">'.$OUTPUT->user_picture($user, array('size'=>16));
+                    $this->content->text .= '<div class="user">'.$OUTPUT->user_picture($user, array('size'=>16, 'alttext'=>false));
                     $this->content->text .= '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$user->id.'&amp;course='.$this->page->course->id.'" title="'.$timeago.'">'.$user->fullname.'</a></div>';
                 }
                 if ($canshowicon and ($USER->id != $user->id) and !isguestuser($user)) {  // Only when logged in and messaging active etc
