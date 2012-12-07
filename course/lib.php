@@ -2516,6 +2516,7 @@ function print_course($course, $highlightterms = '') {
     if ($icons = enrol_get_course_info_icons($course)) {
         echo html_writer::start_tag('div', array('class'=>'enrolmenticons'));
         foreach ($icons as $icon) {
+            $icon->attributes["alt"] .= ": ". format_string($coursename);
             echo $OUTPUT->render($icon);
         }
         echo html_writer::end_tag('div'); // End of enrolmenticons div
