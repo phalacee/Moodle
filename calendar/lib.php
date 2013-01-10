@@ -259,6 +259,7 @@ function calendar_get_mini($courses, $groups, $users, $cal_month = false, $cal_y
 
     $summary = get_string('calendarheading', 'calendar', userdate(make_timestamp($y, $m), get_string('strftimemonthyear')));
     $content .= '<table class="minicalendar calendartable" summary="'.$summary.'">'; // Begin table
+    $content .= '<caption class="accesshide">'. userdate(make_timestamp($y, $m), get_string('strftimemonthyear')) .'</caption>';
     $content .= '<tr class="weekdays">'; // Header row: day names
 
     // Print out the names of the weekdays
