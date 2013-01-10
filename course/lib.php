@@ -1530,7 +1530,7 @@ function print_section($course, $section, $mods, $modnamesused, $absolute=false,
                 if ($url = $mod->get_url()) {
                     // Display link itself.
                     $activitylink = html_writer::empty_tag('img', array('src' => $mod->get_icon_url(),
-                            'class' => 'iconlarge activityicon', 'alt' => $mod->modfullname)) . $accesstext .
+                            'class' => 'iconlarge activityicon', 'alt' => '')) . $accesstext .
                             html_writer::tag('span', $instancename . $altname, array('class' => 'instancename'));
                     echo html_writer::link($url, $activitylink, array('class' => $linkcss, 'onclick' => $onclick)) .
                             $groupinglabel;
