@@ -757,8 +757,15 @@ class core_course_renderer extends plugin_renderer_base {
         }
 
         // Display link itself.
+        $activityalttext = $mod->modfullname;
+        if ((strlen($mod->icon) > 0) && ($mod->modname == "resource")) { // TODO: MDL-37869 - Replace this with more elegant solution as part of course render re-write.
+            preg_match("/f\/(.*)-\d*/", $mod->icon, $filetype);
+            if (strlen($filetype[1]) > 0) {
+                $activityalttext = $filetype[1];
+            }
+        }
         $activitylink = html_writer::empty_tag('img', array('src' => $mod->get_icon_url(),
-                'class' => 'iconlarge activityicon', 'alt' => $mod->modfullname)) . $accesstext .
+                'class' => 'iconlarge activityicon', 'alt' => $activityalttext)) . $accesstext .
                 html_writer::tag('span', $instancename . $altname, array('class' => 'instancename'));
         if ($mod->uservisible) {
             $output .= html_writer::link($url, $activitylink, array('class' => $linkclasses, 'onclick' => $onclick)) .
