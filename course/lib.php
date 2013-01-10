@@ -1579,10 +1579,17 @@ function print_section($course, $section, $mods, $modnamesused, $absolute=false,
                 }
 
                 if ($url = $mod->get_url()) {
+                    $activityalttext = $modulename;
+                    if ((strlen($mod->icon) > 0) && ($mod->modname == "resource")) {
+                       preg_match("/f\/(.*)-\d*/", $mod->icon, $filetype);
+                       if (strlen($filetype[1]) > 0) {
+                           $activityalttext = $filetype[1];
+                       }
+                    }
                     // Display link itself
                     echo '<a ' . $linkcss . $mod->extra . $onclick .
                             ' href="' . $url . '"><img src="' . $mod->get_icon_url() .
-                            '" class="activityicon" alt="' . $modulename . '" /> ' .
+                            '" class="activityicon" alt="' . $activityalttext . '" /> ' .
                             $accesstext . '<span class="instancename">' .
                             $instancename . $altname . '</span></a>';
 
