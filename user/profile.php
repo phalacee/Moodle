@@ -243,38 +243,64 @@ echo '</div>';
 
 // Print all the little details in a list
 
-echo '<table class="list" summary="">';
+echo '<div class="list">';
 
 if (! isset($hiddenfields['country']) && $user->country) {
-    print_row(get_string('country') . ':', get_string($user->country, 'countries'));
+    echo html_writer::start_tag('div');
+    echo html_writer::tag('span', get_string('country') .":");
+    echo get_string($user->country, 'countries');
+    echo html_writer::end_tag('tr');
 }
 
 if (! isset($hiddenfields['city']) && $user->city) {
-    print_row(get_string('city') . ':', $user->city);
+    echo html_writer::start_tag('div');
+    echo html_writer::tag('span', get_string('city') .":");
+    echo $user->city;
+    echo html_writer::end_tag('tr');
 }
 
 if (isset($identityfields['address']) && $user->address) {
-    print_row(get_string("address").":", "$user->address");
+    echo html_writer::start_tag('div');
+    echo html_writer::tag('span', get_string('address') .":");
+    echo $user->address;
+    echo html_writer::end_tag('tr');
 }
 
 if (isset($identityfields['phone1']) && $user->phone1) {
-    print_row(get_string("phone").":", "$user->phone1");
+    echo html_writer::start_tag('div');
+    echo html_writer::tag('span', get_string('phone') .":");
+    echo $user->phone1;
+    echo html_writer::end_tag('tr');
 }
 
 if (isset($identityfields['phone2']) && $user->phone2) {
-    print_row(get_string("phone2").":", "$user->phone2");
+    echo html_writer::start_tag('div');
+    echo html_writer::tag('span', get_string('phone2') .":");
+    echo $user->phone2;
+    echo html_writer::end_tag('tr');
 }
 
 if (isset($identityfields['institution']) && $user->institution) {
-    print_row(get_string("institution").":", "$user->institution");
+    echo html_writer::start_tag('div');
+    echo html_writer::tag('span', get_string('institution') .":");
+    echo $user->institution;
+    echo html_writer::end_tag('tr');
 }
 
 if (isset($identityfields['department']) && $user->department) {
-    print_row(get_string("department").":", "$user->department");
+    echo html_writer::start_tag('div');
+    echo html_writer::tag('span', get_string('department') .":");
+    echo $user->department;
+    echo html_writer::end_tag('tr');
 }
 
 if (isset($identityfields['idnumber']) && $user->idnumber) {
     print_row(get_string("idnumber").":", "$user->idnumber");
+    
+        echo html_writer::start_tag('div');
+    echo html_writer::tag('span', get_string('phone') .":");
+    echo $user->phone1
+    echo html_writer::end_tag('tr');
 }
 
 if (isset($identityfields['email']) and ($currentuser
@@ -282,6 +308,11 @@ if (isset($identityfields['email']) and ($currentuser
   or has_capability('moodle/course:useremail', $context)
   or ($user->maildisplay == 2 and enrol_sharing_course($user, $USER)))) {
     print_row(get_string("email").":", obfuscate_mailto($user->email, ''));
+    
+        echo html_writer::start_tag('div');
+    echo html_writer::tag('span', get_string('phone') .":");
+    echo $user->phone1
+    echo html_writer::end_tag('tr');
 }
 
 if ($user->url && !isset($hiddenfields['webpage'])) {
@@ -290,10 +321,20 @@ if ($user->url && !isset($hiddenfields['webpage'])) {
         $url = 'http://'. $url;
     }
     print_row(get_string("webpage") .":", '<a href="'.s($url).'">'.s($user->url).'</a>');
+    
+        echo html_writer::start_tag('div');
+    echo html_writer::tag('span', get_string('phone') .":");
+    echo $user->phone1
+    echo html_writer::end_tag('tr');
 }
 
 if ($user->icq && !isset($hiddenfields['icqnumber'])) {
     print_row(get_string('icqnumber').':',"<a href=\"http://web.icq.com/wwp?uin=".urlencode($user->icq)."\">".s($user->icq)." <img src=\"http://web.icq.com/whitepages/online?icq=".urlencode($user->icq)."&amp;img=5\" alt=\"\" /></a>");
+    
+        echo html_writer::start_tag('div');
+    echo html_writer::tag('span', get_string('phone') .":");
+    echo $user->phone1
+    echo html_writer::end_tag('tr');
 }
 
 if ($user->skype && !isset($hiddenfields['skypeid'])) {
@@ -374,8 +415,10 @@ if (!isset($hiddenfields['suspended'])) {
         print_row('', get_string('suspended', 'auth'));
     }
 }
+ 
+ */
 
-echo "</table></div></div>";
+echo "</div></div></div>";
 
 
 echo $OUTPUT->blocks_for_region('content');
