@@ -532,7 +532,8 @@ class comment {
             $c->fullname = fullname($u);
             $c->content = format_text($c->content, $c->format, $formatoptions);
             $c->avatar = $OUTPUT->user_picture($u, array('size'=>18));
-
+            $meaningfulid = (object)array('time'=>$u->time, 'user'=>fullname($u));
+            $c->meaningfulid = get_string('deletecomment', 'moodle', $meaningfulid);
             $candelete = $this->can_delete($c->id);
             if (($USER->id == $u->id) || !empty($candelete)) {
                 $c->delete = true;
@@ -621,7 +622,6 @@ class comment {
         $newcmt->format       = $format;
         $newcmt->userid       = $USER->id;
         $newcmt->timecreated  = $now;
-
         // This callback allow module to modify the content of comment, such as filter or replacement
         plugin_callback($this->plugintype, $this->pluginname, 'comment', 'add', array(&$newcmt, $this->comment_param));
 
@@ -648,7 +648,9 @@ class comment {
                 $newcmt = $commentlist[0];
             }
             $newcmt->time = userdate($newcmt->timecreated, $newcmt->strftimeformat);
-
+            $meaningfulid = (object)array('time'=>$newcmt->time, 'user'=>fullname($u));
+            $newcmt->meaningfulid = get_string('deletecomment', 'moodle', $meaningfulid);
+            
             return $newcmt;
         } else {
             throw new comment_exception('dbupdatefailed');
