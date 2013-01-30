@@ -183,7 +183,12 @@ bodyContent: '<div class="comment-delete-confirm"><a href="#" id="confirmdelete-
                         val = val.replace('___name___', list[i].fullname);
                     }
                     if (list[i]['delete']||newcmt) {
-                        list[i].content = '<div class="comment-delete"><a href="#" id ="comment-delete-'+this.client_id+'-'+list[i].id+'" title="'+M.str.moodle.deletecomment+'"><img alt="" src="'+M.util.image_url('t/delete', 'core')+'" /></a></div>' + list[i].content;
+                        var a = new Object();
+                        a.user = list[i].fullname;
+                        a.time = list[i].time;
+                        list[i].content = '<div class="comment-delete">'+
+                                          '<a href="#" aria-role="button" id ="comment-delete-'+this.client_id+'-'+list[i].id +'" title="'+ Y.Escape.html(M.util.get_string('deletecomment', 'moodle', a)) +'">'+
+                                          '<img alt="'+ Y.Escape.html(M.util.get_string('deletecomment', 'moodle', a)) +'" src="'+M.util.image_url('t/delete', 'core')+'" /></a></div>' + list[i].content;
                     }
                     val = val.replace('___time___', list[i].time);
                     val = val.replace('___picture___', list[i].avatar);
