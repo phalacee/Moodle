@@ -32,7 +32,7 @@ if (!empty($CFG->loginpasswordautocomplete)) {
           if (!empty($errormsg)) {
               echo html_writer::start_tag('div', array('class' => 'loginerrors'));
               echo html_writer::link('#', $errormsg, array('id' => 'loginerrormessage', 'class' => 'accesshide'));
-              echo $OUTPUT->error_text($errormsg);
+              echo $OUTPUT->error_text($errormsg, true);
               echo html_writer::end_tag('div');
           }
         ?>
