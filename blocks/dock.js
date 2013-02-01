@@ -890,7 +890,8 @@ M.core_dock.genericblock.prototype = {
         }
 
         // Must set the image src seperatly of we get an error with XML strict headers
-        var movetoimg = Y.Node.create('<img alt="'+M.str.block.undockitem+'" title="'+M.str.block.undockitem+'" />');
+
+        var movetoimg = Y.Node.create('<img alt="'+M.str.block.undockitem+'" title="'+M.util.get_string('undockblock', 'block', blocktitle.innerHTML)+'" />');
         movetoimg.setAttribute('src', M.util.image_url('t/dock_to_block', 'moodle'));
         var moveto = Y.Node.create('<a class="moveto customcommand requiresjs"></a>').append(movetoimg);
         if (location.href.match(/\?/)) {
