@@ -2427,8 +2427,14 @@ function send_stored_file($stored_file, $lifetime=86400 , $filter=0, $forcedownl
     // only Firefox saves all files locally before opening when content-disposition: attachment stated
     $filename     = is_null($filename) ? $stored_file->get_filename() : $filename;
     $isFF         = check_browser_version('Firefox', '1.5'); // only FF > 1.5 properly tested
+    $isAndroid    = check_browser_version('WebKit Android'); // Android web browser.
     $mimetype     = ($forcedownload and !$isFF) ? 'application/x-forcedownload' :
                          ($stored_file->get_mimetype() ? $stored_file->get_mimetype() : mimeinfo('type', $filename));
+    // On the Android Stock Browser, PDFs are corrupted if the brwoser gets to decide whether they should be downloaded or not.
+    if ($isAndroid && ($stored_file->get_mimetype() == "application/pdf")) {
+        $mimetype = ($stored_file->get_mimetype() ? $stored_file->get_mimetype() : mimeinfo('type', $filename));
+        $forcedownload = true; // Force download to any type of resource configuration.
+    }
 
     // if user is using IE, urlencode the filename so that multibyte file name will show up correctly on popup
     if (check_browser_version('MSIE')) {
