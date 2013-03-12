@@ -532,7 +532,8 @@ class comment {
             $c->fullname = fullname($u);
             $c->content = format_text($c->content, $c->format, $formatoptions);
             $c->avatar = $OUTPUT->user_picture($u, array('size'=>18));
-            $meaningfulid = (object)array('time'=>$u->time, 'user'=>fullname($u));
+            $c->time = userdate($c->timecreated, $c->strftimeformat);
+            $meaningfulid = (object)array('time'=>$c->time, 'user'=>fullname($u));
             $c->meaningfulid = get_string('deletecomment', 'moodle', $meaningfulid);
             $candelete = $this->can_delete($c->id);
             if (($USER->id == $u->id) || !empty($candelete)) {
