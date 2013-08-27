@@ -103,17 +103,18 @@ if ($data && has_capability('moodle/restore:uploadfile', $context)) {
 
 
 echo $OUTPUT->header();
+echo $OUTPUT->heading(get_string('selectbackupfile', 'backup'), 2);
 
 // require uploadfile cap to use file picker
 if (has_capability('moodle/restore:uploadfile', $context)) {
-    echo $OUTPUT->heading(get_string('importfile', 'backup'));
+    echo $OUTPUT->heading(get_string('importfile', 'backup'), 3);
     echo $OUTPUT->container_start();
     $form->display();
     echo $OUTPUT->container_end();
 }
 
 if ($context->contextlevel == CONTEXT_MODULE) {
-    echo $OUTPUT->heading_with_help(get_string('choosefilefromactivitybackup', 'backup'), 'choosefilefromuserbackup', 'backup');
+    echo $OUTPUT->heading_with_help(get_string('choosefilefromactivitybackup', 'backup'), 'choosefilefromuserbackup', 'backup', '', '', 3);
     echo $OUTPUT->container_start();
     $treeview_options = array();
     $user_context = context_user::instance($USER->id);
@@ -127,7 +128,7 @@ if ($context->contextlevel == CONTEXT_MODULE) {
     echo $OUTPUT->container_end();
 }
 
-echo $OUTPUT->heading_with_help(get_string('choosefilefromcoursebackup', 'backup'), 'choosefilefromcoursebackup', 'backup');
+echo $OUTPUT->heading_with_help(get_string('choosefilefromcoursebackup', 'backup'), 'choosefilefromcoursebackup', 'backup', '', '', 3);
 echo $OUTPUT->container_start();
 $treeview_options = array();
 $treeview_options['filecontext'] = $context;
@@ -139,7 +140,7 @@ $renderer = $PAGE->get_renderer('core', 'backup');
 echo $renderer->backup_files_viewer($treeview_options);
 echo $OUTPUT->container_end();
 
-echo $OUTPUT->heading_with_help(get_string('choosefilefromuserbackup', 'backup'), 'choosefilefromuserbackup', 'backup');
+echo $OUTPUT->heading_with_help(get_string('choosefilefromuserbackup', 'backup'), 'choosefilefromuserbackup', 'backup', '', '', 3);
 echo $OUTPUT->container_start();
 $treeview_options = array();
 $user_context = context_user::instance($USER->id);
@@ -154,7 +155,7 @@ echo $OUTPUT->container_end();
 
 $automatedbackups = get_config('backup', 'backup_auto_active');
 if (!empty($automatedbackups)) {
-    echo $OUTPUT->heading_with_help(get_string('choosefilefromautomatedbackup', 'backup'), 'choosefilefromautomatedbackup', 'backup');
+    echo $OUTPUT->heading_with_help(get_string('choosefilefromautomatedbackup', 'backup'), 'choosefilefromautomatedbackup', 'backup', '', '', 3);
     echo $OUTPUT->container_start();
     $treeview_options = array();
     $user_context = context_user::instance($USER->id);

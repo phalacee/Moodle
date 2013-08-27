@@ -238,6 +238,7 @@ $string['sectioninc'] = 'Included in backup (no user information)';
 $string['sectionactivities'] = 'Activities';
 $string['selectacategory'] = 'Select a category';
 $string['selectacourse'] = 'Select a course';
+$string['selectbackupfile'] = 'Select a file to restore';
 $string['setting_overwriteconf'] = 'Overwrite course configuration';
 $string['setting_course_fullname'] = 'Course name';
 $string['setting_course_shortname'] = 'Course short name';
