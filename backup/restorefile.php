@@ -103,7 +103,7 @@ if ($data && has_capability('moodle/restore:uploadfile', $context)) {
 
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('selectbackupfile', 'backup'), 2);
+//echo $OUTPUT->heading(get_string('selectbackupfile', 'backup'), 2);
 
 // require uploadfile cap to use file picker
 if (has_capability('moodle/restore:uploadfile', $context)) {

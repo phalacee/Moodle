@@ -78,7 +78,7 @@ class core_backup_renderer extends plugin_renderer_base {
         $html  = html_writer::start_tag('div', array('class'=>'backup-restore'));
 
         $html .= html_writer::start_tag('div', array('class'=>'backup-section'));
-        $html .= $this->output->heading(get_string('backupdetails', 'backup'), 2, array('class'=>'header'));
+        $html .= $this->output->heading(get_string('backupdetails', 'backup'), 3);
         $html .= $this->backup_detail_pair(get_string('backuptype', 'backup'), get_string('backuptype'.$details->type, 'backup'));
         $html .= $this->backup_detail_pair(get_string('backupformat', 'backup'), get_string('backupformat'.$details->format, 'backup'));
         $html .= $this->backup_detail_pair(get_string('backupmode', 'backup'), get_string('backupmode'.$details->mode, 'backup'));
@@ -105,7 +105,7 @@ class core_backup_renderer extends plugin_renderer_base {
         $html .= html_writer::end_tag('div');
 
         $html .= html_writer::start_tag('div', array('class'=>'backup-section settings-section'));
-        $html .= $this->output->heading(get_string('backupsettings', 'backup'), 2, array('class'=>'header'));
+        $html .= $this->output->heading(get_string('backupsettings', 'backup'), 3, array('class'=>'header'));
         foreach ($details->root_settings as $label=>$value) {
             if ($label == 'filename' or $label == 'user_files') {
                 continue;
@@ -116,12 +116,12 @@ class core_backup_renderer extends plugin_renderer_base {
 
         if ($details->type === 'course') {
             $html .= html_writer::start_tag('div', array('class'=>'backup-section'));
-            $html .= $this->output->heading(get_string('backupcoursedetails', 'backup'), 2, array('class'=>'header'));
+            $html .= $this->output->heading(get_string('backupcoursedetails', 'backup'), 3, array('class'=>'header'));
             $html .= $this->backup_detail_pair(get_string('coursetitle', 'backup'), $details->course->title);
             $html .= $this->backup_detail_pair(get_string('courseid', 'backup'), $details->course->courseid);
 
             $html .= html_writer::start_tag('div', array('class'=>'backup-sub-section'));
-            $html .= $this->output->heading(get_string('backupcoursesections', 'backup'), 3, array('class'=>'subheader'));
+            $html .= $this->output->heading(get_string('backupcoursesections', 'backup'), 4, array('class'=>'subheader'));
             foreach ($details->sections as $key=>$section) {
                 $included = $key.'_included';
                 $userinfo = $key.'_userinfo';
@@ -241,7 +241,7 @@ class core_backup_renderer extends plugin_renderer_base {
             $hasrestoreoption = true;
             $html .= $form;
             $html .= html_writer::start_tag('div', array('class'=>'bcs-new-course backup-section'));
-            $html .= $this->output->heading(get_string('restoretonewcourse', 'backup'), 2, array('class'=>'header'));
+            $html .= $this->output->heading(get_string('restoretonewcourse', 'backup'), 3);
             $html .= $this->backup_detail_input(get_string('restoretonewcourse', 'backup'), 'radio', 'target', backup::TARGET_NEW_COURSE, array('checked'=>'checked'));
             $html .= $this->backup_detail_pair(get_string('selectacategory', 'backup'), $this->render($categories));
             $html .= $this->backup_detail_pair('', html_writer::empty_tag('input', array('type'=>'submit', 'value'=>get_string('continue'))));
@@ -255,7 +255,7 @@ class core_backup_renderer extends plugin_renderer_base {
             $html .= $form;
             $html .= html_writer::empty_tag('input', array('type'=>'hidden', 'name'=>'targetid', 'value'=>$currentcourse));
             $html .= html_writer::start_tag('div', array('class'=>'bcs-current-course backup-section'));
-            $html .= $this->output->heading(get_string('restoretocurrentcourse', 'backup'), 2, array('class'=>'header'));
+            $html .= $this->output->heading(get_string('restoretocurrentcourse', 'backup'), 3);
             $html .= $this->backup_detail_input(get_string('restoretocurrentcourseadding', 'backup'), 'radio', 'target', backup::TARGET_CURRENT_ADDING, array('checked'=>'checked'));
             $html .= $this->backup_detail_input(get_string('restoretocurrentcoursedeleting', 'backup'), 'radio', 'target', backup::TARGET_CURRENT_DELETING);
             $html .= $this->backup_detail_pair('', html_writer::empty_tag('input', array('type'=>'submit', 'value'=>get_string('continue'))));
