@@ -253,7 +253,8 @@ input.titleeditor { width: 330px; vertical-align: text-bottom; }
 #course-category-listings li[data-selected='1'].highlight > div {background-color:#ddffaa;}
 #course-category-listings li+li > div,
 #course-category-listings li:first-child > div {border-top-color:#f7f7f9;}
-#course-category-listings li .tree-icon {vertical-align:text-top;margin-right:0.5em;width:12px;height:12px;}
+#course-category-listings li .tree-icon {vertical-align:text-top;width:12px;height:12px;}
+#course-category-listings li .categoryname {margin-left:0.5em;}
 #course-category-listings li[data-selected='1'] > div {background-color:#FFFFD8;border-top-color: #e1e1e8;border-bottom-color:#f7f7f9;}
 #course-category-listings li[data-selected='1'] li:first-of-type > div,
 #course-category-listings li[data-selected='1'][data-expandable='0']+li > div {border-top-color:#e1e1e8;}
