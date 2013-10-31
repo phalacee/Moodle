@@ -93,7 +93,8 @@ background:#E2E2E2;filter:progid:DXImageTransform.Microsoft.gradient(startColors
 .fp-viewbar a img {margin:7px 12px;}
 .fp-viewbar a:hover {background-image:radial-gradient(ellipse at center, #ffffff 60%,#dfdfdf 100%);background-color:#ebebeb;}
 .fp-viewbar a:active {background-image:radial-gradient(ellipse at center, #ffffff 40%,#dfdfdf 100%);background-color:#dfdfdf;}
-.fp-viewbar a.checked {background-color:#dfdfdf;}
+.fp-viewbar a.checked {background-image:radial-gradient(ellipse at center, #ffffff 40%,#dfdfdf 100%);background-color:#dfdfdf;}
+.fp-viewbar a.checked:hover {background-image:radial-gradient(ellipse at center, #ffffff 60%,#dfdfdf 100%);background-color:#ebebeb;}
 .fp-viewbar.disabled a {opacity:.45;background:none;cursor:default;}
 .file-picker .fp-clear-left {clear:left;}
 
