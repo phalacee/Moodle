@@ -6,12 +6,13 @@
 /* New Theme */
 .moodleSkin table {background:transparent; border-spacing: 0; }
 .moodleSkin iframe {display:block;}
-.moodleSkin .mceToolbar {min-height:30px; margin: 9px;}
+.moodleSkin .mceToolbar {min-height:30px; margin: 4px;}
 .moodleSkin .mceToolbar td + td { background: #fff; border: 1px solid #CCCCCC; border-right: none; border-bottom: 1px solid #b3b3b3; }
 .moodleSkin .mceToolbar td + td:empty { display: none;}
-.moodleSkin .mceToolbar a.mceButton { display:block; height: 30px; width: 40px; margin: 0; padding: 0; }
-.moodleSkin .mceToolbar a span.mceIcon { height: 30px; width: 40px; margin: 0; }
-.moodleSkin .mceToolbar a span.mceIcon img { padding: 7px 13px; }
+.dir-rtl .moodleSkin .mceToolbar select,
+.moodleSkin .mceToolbar a.mceButton { display:block; height: 30px; width: 30px; margin: 0; padding: 0; }
+.moodleSkin .mceToolbar a span.mceIcon { height: 30px; width: 30px; margin: 0; }
+.moodleSkin .mceToolbar a span.mceIcon img { padding: 7px 7px; }
 .moodleSkin .mceToolbar .mceGroupStart + td,
 .moodleSkin .mceToolbar .mceToolbarStart + td,
 .moodleSkin .mceToolbar .mceGroupStart + td a,
@@ -21,10 +22,11 @@
 .moodleSkin .mceToolbar .mceToolbarStart + td.mceGroupEnd,
 .moodleSkin .mceToolbar .mceToolbarStart + td.mceGroupEnd a { border-radius: 4px; }
 .moodleSkin .mceToolbar .mceLast { border: none; }
-.moodleSkin .mceToolbar .mceGroupStart { border: none; width: 9px; background: transparent;}
-.moodleSkin .mceToolbar .mceGroupEnd { border-right: 1px solid #CCCCCC; border-radius: 0 4px 4px 0; border-left: 1px solid #CCCCCC; margin-right: 9px; }
+.moodleSkin .mceToolbar .mceGroupStart { border: none; width: 4px; background: transparent;}
+.moodleSkin .mceToolbar .mceGroupEnd { border-right: 1px solid #CCCCCC; border-radius: 0 4px 4px 0; border-left: 1px solid #CCCCCC; margin-right: 4px; }
 .moodleSkin .mceToolbar .mceGroupEnd a { border-radius: 0 4px 4px 0; }
 .moodleSkin .mceToolbar td div .mceGroupEnd { border: none;}
+.moodleSkin .mceToolbar .mceListBox { height: 30px; }
 .moodleSkin .mceToolbar .mceListBox td { border: none; border-radius: 0; }
 .moodleSkin .mceToolbar .mceListBox td a { border: none; border-radius: 0; }
 .moodleSkin .mceToolbar .mceToolbarEndPlaceholder { display: none; }
@@ -33,14 +35,16 @@
 
 .dir-rtl .moodleSkin table {background:transparent; border-spacing: 0; }
 .dir-rtl .moodleSkin iframe {display:block;}
-.dir-rtl .moodleSkin .mceToolbar {min-height:30px; margin: 9px;}
+.dir-rtl .moodleSkin .mceToolbar {min-height:30px; margin: 4px;}
 .dir-rtl .moodleSkin .mceToolbar td + td { background: #fff; border: 1px solid #CCCCCC; border-left: none; border-bottom: 1px solid #b3b3b3; }
 .dir-rtl .moodleSkin .mceToolbar td + td:empty { display: none;}
-.dir-rtl .moodleSkin .mceToolbar a.mceButton { display:block; height: 30px; width: 40px; margin: 0; padding: 0; }
-.dir-rtl .moodleSkin .mceToolbar a span.mceIcon { height: 30px; width: 40px; margin: 0; }
-.dir-rtl .moodleSkin .mceToolbar a span.mceIcon img { padding: 7px 13px; }
+.dir-rtl .moodleSkin .mceToolbar select,
+.dir-rtl .moodleSkin .mceToolbar a.mceButton { display:block; height: 30px; width: 30px; margin: 0; padding: 0; }
+.dir-rtl .moodleSkin .mceToolbar a span.mceIcon { height: 30px; width: 30px; margin: 0; }
+.dir-rtl .moodleSkin .mceToolbar a span.mceIcon img { padding: 7px 7px; }
 .dir-rtl .moodleSkin .mceToolbar .mceGroupStart + td,
 .dir-rtl .moodleSkin .mceToolbar .mceToolbarStart + td,
+
 .dir-rtl .moodleSkin .mceToolbar .mceGroupStart + td a,
 .dir-rtl .moodleSkin .mceToolbar .mceToolbarStart + td a { border-radius: 0 4px 4px 0; }
 .dir-rtl .moodleSkin .mceToolbar .mceGroupStart + td.mceGroupEnd,
@@ -48,8 +52,8 @@
 .dir-rtl .moodleSkin .mceToolbar .mceToolbarStart + td.mceGroupEnd,
 .dir-rtl .moodleSkin .mceToolbar .mceToolbarStart + td.mceGroupEnd a { border-radius: 4px; }
 .dir-rtl .moodleSkin .mceToolbar .mceLast { border: none; }
-.dir-rtl .moodleSkin .mceToolbar .mceGroupStart { border: none; width: 9px; background: transparent;}
-.dir-rtl .moodleSkin .mceToolbar .mceGroupEnd { border-left: 1px solid #CCCCCC; border-radius: 4px 0 0 4px; border-right: 1px solid #CCCCCC; margin-left: 9px; }
+.dir-rtl .moodleSkin .mceToolbar .mceGroupStart { border: none; width: 4px; background: transparent;}
+.dir-rtl .moodleSkin .mceToolbar .mceGroupEnd { border-left: 1px solid #CCCCCC; border-radius: 4px 0 0 4px; border-right: 1px solid #CCCCCC; margin-left: 4px; }
 .dir-rtl .moodleSkin .mceToolbar .mceGroupEnd a { border-radius: 4px 0 0 4px; }
 .dir-rtl .moodleSkin .mceToolbar td div .mceGroupEnd { border: none; }
 .dir-rtl .moodleSkin .mceToolbar .mceListBox td { border: none; border-radius: 0; }
@@ -94,8 +98,8 @@
 /* ListBox */
 .moodleSkin .mceListBox {padding: 0 3px}
 .moodleSkin .mceListBox, .moodleSkin .mceListBox a {display:block}
-.moodleSkin .mceListBox .mceText {padding-left:4px; text-align:left; width:70px; background:#eaf2fb; font-family:Tahoma,Verdana,Arial,Helvetica; font-size:11px; height:20px; line-height:20px; overflow:hidden}
-.moodleSkin .mceListBox .mceOpen {width:14px; height:22px; background:url(img/button_bg.png) -66px 0}
+.moodleSkin .mceListBox .mceText {padding-left:4px; text-align:left; width:70px; background:#eaf2fb; font-family:Tahoma,Verdana,Arial,Helvetica; font-size:11px; height:30px; line-height:30px; overflow:hidden}
+.moodleSkin .mceListBox .mceOpen {width:14px; height:30px; background:url(img/button_bg.png) -66px 0}
 .moodleSkin table.mceListBoxEnabled:hover .mceText, .moodleSkin .mceListBoxHover .mceText, .moodleSkin .mceListBoxSelected .mceText {background:#FFF}
 .moodleSkin table.mceListBoxEnabled:hover .mceOpen, .moodleSkin .mceListBoxHover .mceOpen, .moodleSkin .mceListBoxSelected .mceOpen {background-position:-66px -22px}
 .moodleSkin .mceListBoxDisabled .mceText {color:gray}
