@@ -121,6 +121,7 @@
             right: 100%;
         }
 
+
         .editing_move {
             /* Move the move icon to the start of the line */
             left: auto;
@@ -146,6 +147,22 @@
         .activityinstance {
             padding-left: 4px;
             padding-right: initial;
+        }
+    }
+}
+
+.dir-rtl.editing .section {
+    .activity {
+        .editing_move {
+            /* Move the move icon to the start of the line */
+            left: auto;
+            right: 0;
+        }
+
+        &.editor_displayed {
+            div.activityinstance {
+                padding-left: initial;
+            }
         }
     }
 }
