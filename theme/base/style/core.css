@@ -345,6 +345,7 @@ input#id_externalurl {direction:ltr;}
 .mform .fitem_feditor .feditor {
     margin-left: 0%;
     width: 100%;
+    float: left;
 }
 .dir-rtl .mform .fitem_ffilemanager .ffilemanager,
 .dir-rtl .mform .fitem_feditor .feditor {
