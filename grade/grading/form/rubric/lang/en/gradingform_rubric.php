@@ -56,6 +56,7 @@ $string['regradeoption0'] = 'Do not mark for regrade';
 $string['regradeoption1'] = 'Mark for regrade';
 $string['restoredfromdraft'] = 'NOTE: The last attempt to grade this person was not saved properly so draft grades have been restored. If you want to cancel these changes use the \'Cancel\' button below.';
 $string['rubric'] = 'Rubric';
+$string['rubriccriteria'] = 'Rubric criteria';
 $string['rubricmapping'] = 'Score to grade mapping rules';
 $string['rubricmappingexplained'] = 'The minimum possible score for this rubric is <b>{$a->minscore} points</b> and it will be converted to the minimum grade available in this module (which is zero unless the scale is used).
     The maximum score <b>{$a->maxscore} points</b> will be converted to the maximum grade.<br />

@@ -262,7 +262,7 @@ class gradingform_rubric_renderer extends plugin_renderer_base {
         }
 
         $rubrictemplate = html_writer::start_tag('div', array('id' => 'rubric-{NAME}', 'class' => 'clearfix gradingform_rubric'.$classsuffix));
-        $rubrictemplate .= html_writer::tag('table', $criteriastr, array('class' => 'criteria', 'id' => '{NAME}-criteria'));
+        $rubrictemplate .= html_writer::tag('table', html_writer::tag('caption', get_string('rubriccriteria', 'gradingform_rubric')) . $criteriastr, array('class' => 'criteria', 'id' => '{NAME}-criteria'));
         if ($mode == gradingform_rubric_controller::DISPLAY_EDIT_FULL) {
             $value = get_string('addcriterion', 'gradingform_rubric');
             $input = html_writer::empty_tag('input', array('type' => 'submit', 'name' => '{NAME}[criteria][addcriterion]', 'id' => '{NAME}-criteria-addcriterion', 'value' => $value, 'title' => $value));
