@@ -3628,5 +3628,12 @@ function xmldb_main_upgrade($oldversion) {
         upgrade_main_savepoint(true, 2014050100.00);
     }
 
+    if ($oldversion < 2014050900.00) {
+        // Fixing possible wrong MIME type for Publisher files.
+        $filetypes = array('.%pub'=>'application/x-mspublisher');
+        upgrade_mimetypes($filetypes);
+        upgrade_main_savepoint(true, 2014050900.00);
+    }
+
     return true;
 }
