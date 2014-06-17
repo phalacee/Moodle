@@ -24,3 +24,4 @@
 
 $string['pluginname'] = 'My grades';
 $string['overview:view'] = 'View my grades';
+$string['mygrades'] = 'My grades';

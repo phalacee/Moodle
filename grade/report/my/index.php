@@ -25,12 +25,12 @@
 require_once '../../../config.php';
 require_once $CFG->libdir.'/gradelib.php';
 require_once $CFG->dirroot.'/grade/lib.php';
-require_once $CFG->dirroot.'/grade/my/overview/lib.php';
+require_once $CFG->dirroot.'/grade/report/my/lib.php';
 
-$courseid = required_param('id', PARAM_INT);
-$userid   = optional_param('userid', $USER->id, PARAM_INT);
-
-$PAGE->set_url(new moodle_url('/grade/report/my/index.php', array('id'=>$courseid)));
+$courseid = 1;
+$userid   = $USER->id;
+$title = get_string('mygrades', 'gradereport_my');
+$navcontext = context_user::instance($USER->id);
 
 /// basic access checks
 if (!$course = $DB->get_record('course', array('id' => $courseid))) {
@@ -38,9 +38,15 @@ if (!$course = $DB->get_record('course', array('id' => $courseid))) {
 }
 require_login($course);
 
+$PAGE->set_url(new moodle_url('/grade/report/my/index.php'));
+$PAGE->set_title($title);
+$PAGE->set_heading($title);
+$PAGE->set_context($navcontext);
+
 $context = context_course::instance($course->id);
+
 $systemcontext = context_system::instance();
-require_capability('gradereport/my:view', $context);
+require_capability('gradereport/overview:view', $context);
 
 if (empty($userid)) {
     require_capability('moodle/grade:viewall', $systemcontext);
@@ -75,79 +81,26 @@ if (!$access) {
 }
 
 /// return tracking object
-$gpr = new grade_plugin_return(array('type'=>'report', 'plugin'=>'overview', 'courseid'=>$course->id, 'userid'=>$userid));
+$gpr = new grade_plugin_return(array('type'=>'report', 'plugin'=>'my', 'courseid'=>$course->id, 'userid'=>$userid));
 
 /// last selected report session tracking
 if (!isset($USER->grade_last_report)) {
     $USER->grade_last_report = array();
 }
-$USER->grade_last_report[$course->id] = 'overview';
+$USER->grade_last_report[$course->id] = 'my';
 
 //first make sure we have proper final grades - this must be done before constructing of the grade tree
 grade_regrade_final_grades($courseid);
 
-if (has_capability('moodle/grade:viewall', $systemcontext)) { //Admins will see all student reports
-    // please note this would be extremely slow if we wanted to implement this properly for all teachers
-    $groupmode    = groups_get_course_groupmode($course);   // Groups are being used
-    $currentgroup = groups_get_course_group($course, true);
+// Create a report instance
+$report = new grade_report_my($userid, $gpr, $context);
 
-    if (!$currentgroup) {      // To make some other functions work better later
-        $currentgroup = NULL;
-    }
-
-    $isseparategroups = ($course->groupmode == SEPARATEGROUPS and !has_capability('moodle/site:accessallgroups', $context));
-
-    if ($isseparategroups and (!$currentgroup)) {
-        // no separate group access, can view only self
-        $userid = $USER->id;
-        $user_selector = false;
-    } else {
-        $user_selector = true;
-    }
-
-    if (empty($userid)) {
-        // Add tabs
-        print_grade_page_head($courseid, 'report', 'overview');
-
-        groups_print_course_menu($course, $gpr->get_return_url('index.php?id='.$courseid, array('userid'=>0)));
-
-        if ($user_selector) {
-            $renderer = $PAGE->get_renderer('gradereport_overview');
-            echo $renderer->graded_users_selector('overview', $course, $userid, $currentgroup, false);
-        }
-        // do not list all users
-
-    } else { // Only show one user's report
-        $report = new grade_report_overview($userid, $gpr, $context);
-        print_grade_page_head($courseid, 'report', 'overview', get_string('pluginname', 'gradereport_overview'). ' - '.fullname($report->user));
-        groups_print_course_menu($course, $gpr->get_return_url('index.php?id='.$courseid, array('userid'=>0)));
-
-        if ($user_selector) {
-            $renderer = $PAGE->get_renderer('gradereport_overview');
-            echo $renderer->graded_users_selector('overview', $course, $userid, $currentgroup, false);
-        }
-
-        if ($currentgroup and !groups_is_member($currentgroup, $userid)) {
-            echo $OUTPUT->notification(get_string('groupusernotmember', 'error'));
-        } else {
-            if ($report->fill_table()) {
-                echo '<br />'.$report->print_table(true);
-            }
-        }
-    }
-} else { //Non-admins will see just their own report
-
-    // Create a report instance
-    $report = new grade_report_overview($userid, $gpr, $context);
-
-    // print the page
-    print_grade_page_head($courseid, 'report', 'overview', get_string('pluginname', 'gradereport_overview'). ' - '.fullname($report->user));
-
-    if ($report->fill_table()) {
-        echo '<br />'.$report->print_table(true);
-    }
+// print the page
+//print_grade_page_head($courseid, 'report', 'overview', get_string('pluginname', 'gradereport_overview'). ' - '.fullname($report->user));
+echo $OUTPUT->header();
+if ($report->fill_table()) {
+    echo '<br />'.$report->print_table(true);
 }
-
 echo $OUTPUT->footer();
 
 
